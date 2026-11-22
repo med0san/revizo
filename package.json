@@ -1,0 +1,36 @@
+{
+  "name": "revizo",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@blockshub/pawnote-lts": "^1.6.4",
+    "@expo/metro-runtime": "^58.0.17",
+    "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~58.0.26",
+    "expo-camera": "~58.0.14",
+    "expo-crypto": "~58.0.8",
+    "expo-device": "~58.0.5",
+    "expo-secure-store": "~58.0.3",
+    "expo-status-bar": "~58.0.5",
+    "expo-system-ui": "~58.0.7",
+    "react": "19.3.0",
+    "react-dom": "^19.3.0",
+    "react-native": "0.88.1",
+    "react-native-safe-area-context": "~5.11.1",
+    "react-native-web": "^0.21.4",
+    "react-native-webview": "14.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "build:web": "expo export --platform web && node scripts/postweb.mjs"
+  },
+  "private": true
+}
