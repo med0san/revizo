@@ -4,3 +4,6 @@ dist/
 android/
 ios/
 *.apk
+*.ipa
+Payload/
+build/

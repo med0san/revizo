@@ -42,6 +42,11 @@
           "recordAudioAndroid": false
         }
       ]
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "fr.revizo.app",
+      "supportsTablet": false,
+      "buildNumber": "1"
+    }
   }
 }

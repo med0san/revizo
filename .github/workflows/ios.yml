@@ -1,0 +1,45 @@
+name: Build iOS (IPA non signé)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Dépendances
+        run: npm install --legacy-peer-deps
+
+      - name: Projet iOS natif
+        run: npx expo prebuild --platform ios --no-install
+
+      - name: Compilation (sans signature)
+        run: |
+          set -eo pipefail
+          WS=$(ls -d ios/*.xcworkspace | head -1)
+          SCHEME=$(basename "$WS" .xcworkspace)
+          xcodebuild \
+            -workspace "$WS" -scheme "$SCHEME" \
+            -configuration Release -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            build | tail -40
+          APP=$(ls -d build/Build/Products/Release-iphoneos/*.app | head -1)
+          mkdir -p Payload && cp -R "$APP" Payload/
+          zip -qr Revizo.ipa Payload
+          ls -la Revizo.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Revizo-ipa
+          path: Revizo.ipa
